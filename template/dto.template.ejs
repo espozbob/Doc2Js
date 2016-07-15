@@ -1,0 +1,44 @@
+/**
+* Created by dto-gen on 2016-07-14.
+*/
+/**
+* File name "<%=dto%>.model.js"
+*/
+
+(function(){
+    "use strict";
+    angular.module('model.<%=module%>')
+    .factory('<%=dto%>', <%=dto%>);
+
+    /**
+    * @memberof model.<%=module%>
+    * @ngdoc factory
+    * @name <%=dto%>
+    * @returns <%=dto%> {object}  service return
+    */
+    function <%=dto%>(){
+
+        function <%=dto%>(
+                <%=section1%>
+        ){
+                <%=section2%>
+        }
+        <%=dto%>.build = build;
+
+        return <%=dto%>;
+
+        /**
+        * build 펑션
+        * @memberof <%=dto%>
+        * @function build
+        * @returns {Object}  <%=dto%> 리턴
+        */
+        function build(data) {
+            return new <%=dto%> (
+                <%=section3%>
+            );
+
+        }
+    }
+
+})();

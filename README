@@ -1,0 +1,7 @@
+# 컴포넌트설계서 CSV양식 기준
+
+    - 첫번째 row는 컬럼명, 두번째 row 이하는 data
+    - 컬럼명은 영문
+# 실행
+
+    > node dto-gen.js dto.csv dto.template.ejs "모듑명"
