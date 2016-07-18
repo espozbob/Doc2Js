@@ -1,0 +1,31 @@
+/**
+* Created by Doc2Js
+* File name "<%= program%>.map.js"
+*/
+<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', handler:'event_handler'}, ...]}%>
+
+(function(){
+"use strict";
+
+    var contents = angular.module('<%= program%>');
+
+    contents.config(contentsConfig);
+
+    contentsConfig.$inject = ['$commangularProvider'];
+
+    /**
+    * <%= program%> 모듈 map 설정 초기화
+    * @memberof app.contents
+    * @ngdoc config
+    * @name contentsConfig
+    * @param  $commangularProvider   {service} injector of $commangularProvider
+    */
+    function contentsConfig ($commangularProvider) {
+
+    // CUD(create, update, delete) 커맨드는 "CMD" 구분명 대신 "SAV, UPT, DEL" 각각 사용
+
+    <% events.forEach(function(event) { %>  $commangularProvider.mapTo('<%= event.id%>').asSequence().add('<%= event.id%>_CMD');
+    <% }); %>
+    }
+
+})();

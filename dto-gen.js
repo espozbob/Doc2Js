@@ -1,7 +1,7 @@
 // first of all make sure we have enough arguments (exit if not)
 if (process.argv.length != 4)
 {
-    console.error("Usage: node csv2html.js input.csv template.ejs output.html")
+    console.error("Usage: node dto-gen.js csv/dto.csv template/dto.template.ejs")
     console.error();
     console.error("Outputs the given template for each row in the given input.")
     console.error("Uses the first row of the CSV as column names in the template.")

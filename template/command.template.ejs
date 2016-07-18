@@ -1,0 +1,41 @@
+/**
+* Created by Doc2Js
+* File name "<%= program%>.command.js"
+*/
+<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', handler:'event_handler'}, ...]}%>
+
+
+(function(){
+"use strict";
+
+    // CUD(create, update, delete) 커맨드는 "CMD" 구분명 대신 "SAV, UPT, DEL" 각각 사용
+
+<% events.forEach(function(event) { %>  commangular.create('<%= event.id%>_CMD',<%= event.id%>_CMD);
+<% }); %>
+
+
+<% events.forEach(function(event) { %>
+
+    /**
+    * <%= event.label%>에서 <%= event.handler%> 호출시 생성 커맨드
+    * @memberof app
+    * @ngdoc command
+    * @name <%= event.id%>_CMD
+    * @param logger {service} injector of blocks.logger
+    * @param $state {service} injector of $state
+    * @param service {service}  service return
+    */
+    <%= event.id%>_CMD.$inject = ['logger', '$state'];
+    function <%= event.id%>_CMD(logger, $state){
+
+        return {
+            execute: function() {
+                logger.success('Execute: <%= event.id%>_CMD',$state, '<%= event.label%>에서 <%= event.handler%> 실행');
+                /* code */
+
+            }
+        };
+    }
+<% }); %>
+
+})();

@@ -1,7 +1,25 @@
-# 컴포넌트설계서 CSV양식 기준
+# 컴포넌트설계서 -> 프레임워크 .js 파일 작성을 위한 CSV양식 기준
 
     - 첫번째 row는 컬럼명, 두번째 row 이하는 data
     - 컬럼명은 영문
-# 실행
 
-    > node dto-gen.js dto.csv dto.template.ejs "모듑명"
+# 실행예
+
+    > node csv2js.js input.csv template.ejs output/output.html
+
+# 종류
+
+    ## dto 모델파일
+
+        - dto-gen.js
+        - $> node dto-gen.js dto.csv dto.template.ejs
+
+    ## SC용 dto 모델파일
+
+        - sc-gen.js
+        - $> node sc-gen.js
+
+    ## 화면모듈 파일(*.command.js, *.controller.js, *.map.js, *.spec.js, *.module.js, *.include.js)
+
+        - vc-gen.js
+        - $> node vc-gen.js

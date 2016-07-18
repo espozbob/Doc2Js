@@ -1,0 +1,64 @@
+/**
+* Created by Doc2Js
+* File name "<%= program%>.controller.js"
+*/
+<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}%>
+
+(function(){
+"use strict";
+
+    angular.module('<%= program%>')
+        .controller('<%= program%>', <%= program%>);
+
+    /**
+    * <%= program%> 컨트롤러
+    * @memberof app.contents
+    * @ngdoc controller
+    * @name <%= program%>
+    * @param logger {service} logger
+    * @param $commangular {service} $commangular
+    */
+    <%= program%>.$inject = ['logger','$commangular'
+    <% dtoes.forEach(function(dto) { %>                     ,'<%= dto.in%>', '<%= dto.out%>'
+    <% }); %>                       ];
+    function <%= program%>(logger, $commangular
+    <% dtoes.forEach(function(dto) { %>                     ,<%= dto.in%>, <%= dto.out%>
+    <% }); %>                       ){
+
+        var vm = this;
+
+    <% dtoes.forEach(function(dto) { %>    vm.<%= dto.in%> = <%= dto.in%>;
+        vm.<%= dto.out%> = <%= dto.out%>;
+    <% }); %>
+
+<% events.forEach(function(event) { %>      <% if (event.handler) { %>  vm.<%= event.handler%> = <%= event.handler%>;<% } %>
+<% }); %>
+        activate();
+
+        /**
+        * 컨트롤러 초기화
+        * @memberof <%= program%>
+        * @function activate
+        */
+        function  activate() {
+
+        }
+<% events.forEach(function(event) { %>
+    <% if (event.handler) { %>
+        /**
+        * <%= event.label%>에서 <%= event.type%> 할 경우 이벤트 핸들러
+        * @memberof <%= program%>
+        * @function <%= event.handler%>
+        * @param <%= event.out%>
+        * @return <%= event.in%>
+        */
+        function <%= event.handler%>(<%= event.out%>){
+            var evtId = '<%= event.id%>';
+            logger.info('Dispatch: '+ evtId, vm, '<%= event.label%>에서 <%= event.type%> -> ' + <%= event.out%>);
+            $commangular.dispatch(evtId, {<%= event.out%>: <%= event.out%>});
+        }
+    <% } %>
+<% }); %>
+    }
+
+})();
