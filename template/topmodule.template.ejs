@@ -1,0 +1,14 @@
+/**
+* Created by Doc2Js
+* File name "<%= program%>.module.js"
+*/
+<%# Input param: program {program:'대문자', submodules:[{ program:'화면ID', code2:'소문자', code3:'소문자', url:''},...]}%>
+
+(function(){
+"use strict";
+
+    angular.module('<%= program%>', [
+        <% submodules.forEach(function(submodule) { %>    ,'<%=submodule.program%>'
+        <% }); %>
+    ]);
+})();

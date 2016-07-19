@@ -1,0 +1,91 @@
+level2,code2,level3,code3,level4,code4,URL,ID,Name,Description,CRUD
+Dashboard,DSB,,DSB01,,1,dashboard/,DSB0101MQ01,Dashboard(Main),"멀티데이터센터 및 resource, vm 사용량, alarm 표시",R
+Resources,RSC,Hardware,RSC01,,1,resources/hw/overview,RSC0101MU01,Hardware Overview,,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/searchDetail,RSC0101PQ02,Hardware 검색,검색 필터링,
+Resources,RSC,Hardware,RSC01,,10,resources/hw/upload,RSC0110FU01,Hardware Batch Import,"Excel upload 로 여러건 등록 가능, Excel sample download 가능",C
+Resources,RSC,Hardware,RSC01,,,resources/hw/upload/errRecent,RSC0110PQ02,Error Message,batch upload 실패 시 Error Message 조회 팝업,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/add,RSC0110FU03,Hardware 등록,"하드웨어 타입별 (Server, Rack, Storage, Switch, Chassis, Temperature & Humidity) 일반정보, 스팩정보, 담당자정보 등록 가능",C
+Resources,RSC,Hardware,RSC01,,,resources/hw/dc/*datacenter-id*/floorPlan,RSC0110PQ04,상면도,상면도 선택 팝업,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/dc/*datacenter-id*/floor/*no*/room/*no*/floorPlan,RSC0110PQ05,실장도,,
+Resources,RSC,Hardware,RSC01,,20,resources/hw/dc/*datacenter-id*/floor/*no*,RSC0120FQ01,층정보(? 층),하드웨어 층상세 조회,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/info/dc/*datacenter-id*/floor/*no*/room/*no*,RSC0120FQ02,룸정보(Room#?),하드웨어 Room상세 조회,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/info/dc/*datacenter-id*/floor/*no*/room/*no*/hardware/*key*,RSC0120FQ04,하드웨어정보(H/W Name)),"하드웨어 Type(Rack,Server, Storage,Switch, Chassis, Temperature & Humidity)상세 조회(Tab:Spec, Software,Services,History)",
+Resources,RSC,Hardware,RSC01,,,resources/hw/searchSoftware,RSC0120PQ05,Software,수동설치 소프트웨어 조회 팝업,R
+Resources,RSC,Hardware,RSC01,,,resources/hw/edit/dc/*datacenter-id*/floor/*no*/room/*no*/hardware/*key*,RSC0130FU02,하드웨어정보(H/W Name)),"하드웨어 일반정보, 스팩정보, 담당자정보 수정가능(Racj,Server,Storage,Switch등)",
+Resources,RSC,Hardware,RSC01,,,resources/hw/dc/*datacenter-id*/floorPlanEdit,RSC0130PQ02,상면 설정,상면도 선택 팝업,R
+Resources,RSC,Cloud Infra,RSC10,Openstack,1,resources/ci/overview,RSC1001MU01,CloudInfra Overview,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*,RSC1001FU03,프로젝트 Overview,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/instances,RSC1001FU04,인스턴스목록,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/instances/*instance-id*,RSC1001FU05,인스턴스상세,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/log,RSC1001PQ10,로그팝업,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/volume,RSC1001FU06,볼륨상세,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/img,RSC1001FU07,이미지목록,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/img/*img-id*,RSC1001FU08,이미지상세,,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/op/project/*project-id*/auth,RSC1001FU09,접근 및 권한,,R
+Resources,RSC,Cloud Infra,RSC10,VMWare,10,resources/ci/vm/instance,RSC1010FU04,Instance Name #?,클라우드 인프라 Instance 상세조회,R
+Resources,RSC,Cloud Infra,RSC10,,,resources/ci/vm/vmware,RSC1010FU05,VM Ware #1,클라우드 인프라 VM Ware 상세조회,R
+Resources,RSC,Software,RSC20,,1,resources/sw/overview,RSC2001MU01,Software Overview,"라이선스 만료예정 , 만료 소프트웨어 현황 및 전체 소프트웨어 보유 및 사용현황",R
+Resources,RSC,Software,RSC20,,,resources/sw/searchDetail,RSC2001PQ02,Software 검색,검색필터링,
+Resources,RSC,Software,RSC20,,,resources/sw/add,RSC2001FU04,Software 등록,"소프트웨어 종류별 (OS, DB, Web, WAS, Monitoring, etc) 자동 또는 수동으로 등록",C
+Resources,RSC,Software,RSC20,,,resources/sw/attributeDetail,RSC2001PQ05,Attribute Set View,"소프트웨어(DB, Web, WAS, Monitoring, etc) 자동설치 Cookbook 속성 팝업",R
+Resources,RSC,Software,RSC20,,,resources/sw/info/dc/*datacenter-id*/swId/*id*,RSC2001FU06,Software 상세,"소프트웨어 상세조회, 삭제 가능 및 수정페이지이동",RUD
+Resources,RSC,Software,RSC20,,,resources/sw/edit/dc/*datacenter-id*/swId/*id*,RSC2001FU07,Software 수정,소프트웨어 수정,U
+Resources,RSC,Service,RSC30,,1,resources/sv/overview,RSC3001MU01,Service Overview,Overview 화면설계서 확인필요(정보성&안내문구),R
+Resources,RSC,Service,RSC30,,,resources/sv/searchDetail,RSC3001PQ02,Service 검색,검색필터링,
+Resources,RSC,Service,RSC30,,,resources/sv/add,RSC3001FU04,Service 등록,Resource 자원 Service 단위 그룹으로 등록,C
+Resources,RSC,Service,RSC30,,,resources/sv/searchNode,RSC3001PQ05,Node Search,Resource 에 등록된 모든 자원 조회팝업,R
+Resources,RSC,Service,RSC30,,,resources/sv/info/dc/*datacenter-id*/svId/*id*,RSC3001FU06,Service 상세,상세조회 삭제 가능 및 수정페이지 이동,RUD
+Resources,RSC,Service,RSC30,,,resources/sv/edit/dc/*datacenter-id*/svId/*id*,RSC3001FU07,Service 수정,서비스 수정가능,U
+Resources,RSC,Service,RSC30,,,resources/sv/nodeList,RSC3001PU08,Node List,선택된 노드 조회 팝업,RD
+Alarm,ALM,History,ALM01,,1,alarm/dc,ALM0101FU01,Alarm 상세(Severity명),"장애관련 목록조회, 알람활성, 장애여부 확인 가능",R
+Alarm,ALM,History,ALM01,,,alarm/searchDetail,ALM0101PQ02,Alarm 검색 필터링,검색 필터링,
+Alarm,ALM,Definition,ALM10,,,alarm/link,ALM0101PQ03,,화면없음 (메뉴만 존재 link),
+T-ROS System Status,TSS,Status,TSS01,,1,trosStatus/,TSS0101MQ01,T-ROS System Status,T-ROS 시스템 및 컴포넌트 조회,R
+Settings,STT,User Management,STT01,,1,settings/user,STT0101MU01,User Management,"사용자 정보 목록조회,상세조회(접근권한,메뉴권한, 가상자원권환), 등록, 수정, 삭제 가능",CRUD
+Settings,STT,User Management,STT01,,,settings/user/searchDetail,STT0101PQ02,User Management 검색,검색 필터링,
+Settings,STT,User Management,STT01,,,settings/user/add,STT0101PU03,사용자 등록,사용자 등록 팝업으로 등록가능,C
+Settings,STT,User Management,STT01,,,settings/user/edit/userId/*id*,STT0101PU04,사용자 정보 수정,사용자 수정 팝업으로 수정가능,U
+Settings,STT,Infra Registration,STT10,DataCenter,1,settings/infra/dc,STT1001MU01,DataCenter,"등록되어 있는 전체 DataCenter 조회, 삭제 가능",CRUD
+Settings,STT,Infra Registration,STT10,,,settings/infra/dc/floorPlan,STT1001PQ02,전체 상면도,상면도 팝업,R
+Settings,STT,Infra Registration,STT10,,,settings/infra/dc/floorImg,STT1001PQ03,층 이미지,층이미지 레이어 팝업,R
+Settings,STT,Infra Registration,STT10,,,settings/infra/dc/add,STT1001TU04,데이터 센터 등록,DataCenter 등록가능,C
+Settings,STT,Infra Registration,STT10,,,settings/infra/dc/floorPlan/unit,STT1001PU05,룸정보(Room#?) Unit 설정,Unit 설정 레이어 팝업,C
+Settings,STT,Infra Registration,STT10,,,settings/infra/dc/edit/*25*,STT1001TU06,데이터 센터 수정,DataCenter 수정가능,U
+Settings,STT,Infra Registration,STT10,Cloud Infra,10,settings/infra/ci,STT1010TU07,Cloud Infra,"등록되어 있는 전체 CloudInfra 조회, 삭제 가능",CRUD
+Settings,STT,Infra Registration,STT10,,,settings/infra/ci/add,STT1010TU08,Cloud Infra 등록,CloudInfra 등록가능,C
+Settings,STT,Infra Registration,STT10,,,settings/infra/ci/edit/*cloudInfra-id*,STT1010TU09,Cloud Infra 수정,CloudInfra 수정가능,U
+Settings,STT,Deployment Zone,STT20,,1,settings/deployZone,STT2001MU01,Deployment Zone,"Deployment Zone 목록조회, 수정, 삭제 가능",CRUD
+Settings,STT,Deployment Zone,STT20,,,settings/deployZone/add,STT2001PQ03,Deployment Zone 등록,Deployment Zone 등록,C
+Settings,STT,Deployment Zone,STT20,,,settings/deployZone/edit/dc/*31*/,STT2001PQ04,Deployment Zone 수정,Deployment Zone 수정,RU
+Support,SPT,Tutorial,SPT10,,1,support/tutorial,SPT1001MQ01,Tutorial,화면설계서 내용 없음,
+User,USR,Profile,USR01,,1,user/profile,USR0101MU01,Profile,"개인정보 수정 및 물리자원, 가상자원 default 설정",RU
+User,USR,Sign Out,USR30,,1,signout/,USR0101MU01,Sign Out,화면없음 메뉴만 존재,
+User,USR,Login,USR20,,1,login/,USR2001MU01,로그인,로그인,C
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/searchDetail,JOB1001PQ02,SW Provisioning 검색,검색 필터링,
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/add,JOB1001FU04,Software Provisioning Job 등록,"대상 노드 선택 및 설치 소프트웨어 선택 후 등록 가능 하며, 등록과 동시에 실행 가능",C
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/searchSoftware,JOB1001PQ05,Software Search,자동설치 소프트웨어 조회 팝업,R
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/attributeDetail,JOB1001PU06,Attribute,속성 변경가능,RU
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/list,JOB1001FU07,Software Provisioning Job 상세,소프트웨어 설치시 실패된 소프트웨어 정보 확인이 가능하며 재실행 가능. 설치 진행중인 소프트웨어에 대해서 중단도 가능,RUD
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/edit/jobId/*job-id*,JOB1001FU08,Software Provisioning Job 수정,"설치상태가 Ready, Scheduled 일 경우에만 수정 가능",U
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/execute,JOB1001PU09,Password Confirmation,소프트웨어 설치 실행시 패스워드 확인 팝업,C
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/searchSoftwareOS,JOB1001PU10,OS Search,OS 조회 팝업,R
+Jobs,JOB,SW Provisioning,JOB10,,,jobs/sw/errorScript,JOB1001PU11,Progress Information,스크립트오류 팝업,R
+Jobs,JOB,Clean-up,JOB20,,,jobs/cu/searchDetail,JOB2001PQ02,Clean-up 검색,검색 필터링,
+Jobs,JOB,Clean-up,JOB20,,,jobs/cu/add,JOB2001FU04,Clean-up Job 등록,제거대상 노드 선택 및 삭세할 소프트웨어 선택 후 등록가능,C
+Jobs,JOB,Clean-up,JOB20,,,jobs/cu/list,JOB2001FU05,Clean-up Job 상세,소프트웨어 Clean-up 단건 조회로 제거 실패시 실패한 노드들만 재실행 가능 및 수정페이지 이동,RUD
+Jobs,JOB,Clean-up,JOB20,,,jobs/cu/edit/jobId/*job-id*,JOB2001FU06,Clean-up Job 수정,제거상태가 Ready일 경우에만 수정 가능,U
+Jobs,JOB,Clean-up,JOB20,,,jobs/cu/execute,JOB2001PU07,Password Confirmation,소프트웨어 제거 실행시 패스워드 확인 팝업,C
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/searchDetail,JOB3001PQ02,Remote Execution 검색,검색 필터링,
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/add,JOB3001FU04,Remote Execution 등록,"Job Type(Chef Cookbook, Shell Script Set, Shell Script, Ad-Hoc Command )별 저장 또는 저장 및 실행 가능하며, 실행 시 패스워드 확인 필요",C
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/list,JOB3001MU01,Remote Execution 상세,상세조회화면,R
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/execute,JOB3001PU06,Password Confirmation,실행시 패스워드 확인 팝업,C
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/errInfo,JOB3001PU07,Remote Execution 다운로드팝업,Target Nodes List 생성하다 실패 시 오류정보 노출 팝업,R
+Jobs,JOB,Remote Execution,JOB30,,,jobs/remoteExecution/edit/jobId/*job-id*,JOB3001FU08,Remote Execution 수정,수정화면,RU
+Jobs,JOB,Maintenance,JOB40,,1,jobs/maintenance/list,JOB0401MU01,Hardware/Software 작업조회,,RD
+Jobs,JOB,Maintenance,JOB40,,,jobs/maintenance/add,JOB0401FU02,Hardware/Software 작업 등록,,C
+Jobs,JOB,Maintenance,JOB40,,,jobs/maintenance/edit/jobId/*job-id*,JOB0401FU03,Hardware/Software 수정,,RU
+Jobs,JOB,Agent Bootstrap,JOB50,,1,jobs/agentBootstrap/list,JOB0501MU01,Job #?,조회 및 상세화면,
+Jobs,JOB,Agent Bootstrap,JOB50,,,jobs/agentBootstrap/add,JOB0501FU02,Agent Bootstrap Job 등록,등록화면,
+Jobs,JOB,Agent Bootstrap,JOB50,,,jobs/agentBootstrap/edit/jobId/*job-id*,JOB0501FU03,Agent Bootstrap Job 수정,수정화면,
+Jobs,JOB,Agent Bootstrap,JOB50,,,jobs/agentBootstrap/execute,JOB0501PU04,Password Confirmation,실행시 패스워드 확인 팝업,
+Jobs,JOB,Agent Bootstrap,JOB50,,,jobs/agentBootstrap/errInfo,JOB0501PQ05,Fail Information,실패 시 오류정보 노출 팝업,

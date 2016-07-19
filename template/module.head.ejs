@@ -5,7 +5,7 @@
  * 모듈 loader 설정
  * 아래 내용을 Copy해서 app/assets/js/init.js 복사하세요.
  */
-<%# Input param: List<program> {programs: [program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}]}%>
+<%# Input param: List<program> {programs: [module:'', program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}]}%>
 
 <% programs.forEach(function(program) { %>    { <%=program.program%>Module:     contentsUrl + '/<%=program.module%>/<%=program.program%>.module.js'},
     { <%=program.program%>Cmd:     contentsUrl + '/<%=program.module%>/<%=program.program%>.command.js'},
@@ -13,15 +13,3 @@
     { <%=program.program%>Ctrl:     contentsUrl + '/<%=program.module%>/<%=program.program%>.controller.js'},
 <% }); %>
 
-/**
- * 모듈 Injection 설정
- * 아래 내용을 Copy해서 각 모듈별 파일(*.module.js)에 복사하세요.
- */
-(function(){
-    "use strict";
-    angular.module('<%=program.module%>', [
-<% programs.forEach(function(program) { %>    ,'<%=program.program%>'
-<% }); %>
-    ]);
-
-})();

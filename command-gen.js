@@ -1,7 +1,10 @@
+/**
+ * Usage: >node.exe command-gen.js csv/command.csv csv/service.csv template/command.template.ejs template/map.template.ejs template/controller.template.ejs template/spec.template.ejs template/module.head.ejs
+ */
 // first of all make sure we have enough arguments (exit if not)
 if (process.argv.length != 9)
 {
-    console.error("Usage: node command-gen.js csv/command.csv template/command.template.ejs")
+    console.error("Usage: node command-gen.js csv/command.csv csv/service.csv template/command.template.ejs template/map.template.ejs template/controller.template.ejs template/spec.template.ejs template/module.head.ejs")
     console.error();
     console.error("Outputs the given template for each row in the given input.")
     console.error("Uses the first row of the CSV as column names in the template.")

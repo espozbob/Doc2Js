@@ -1,3 +1,6 @@
+/**
+ * Usage: >node.exe dto-gen.js csv/dto.csv template/dto.template.ejs template/dto.head.ejs
+ */
 // first of all make sure we have enough arguments (exit if not)
 if (process.argv.length != 5)
 {

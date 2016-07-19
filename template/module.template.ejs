@@ -2,7 +2,7 @@
 * Created by Doc2Js
 * File name "<%= program%>.module.js"
 */
-<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', handler:'event_handler'}, ...]}%>
+<%# Input param: submodule { program:'화면ID', code2:'소문자', code3:'소문자', url:'', name:'', desc:''}%>
 
 (function(){
 "use strict";
@@ -14,7 +14,8 @@
 
 
     /**
-    * <%= program%> 모듈
+    * <%= program%> 모듈 : <%= name%>
+    * <%= desc%>
     * @memberof app
     * @ngdoc config
     * @name <%= program%>
@@ -23,42 +24,31 @@
     */
     function <%= program%> ($stateProvider, $urlRouterProvider, AppPath) {
 
-        $stateProvider
-        .state('tros.shell.ir', {
-            url:'/settings/infra',
-            ncyBreadcrumb: {
-                label: 'Infra Registration'
-            },
-            templateUrl: AppPath.layout.ir
-        })
-        .state('tros.shell.ir.dc', {
-            url:'/dc',
-            ncyBreadcrumb: {
-                label: 'Datacenter'
-            },
-            views: {
-                'tab' : {
-                    controller: 'DcTabList',
-                    controllerAs: 'vm',
-                    templateUrl:  AppPath.components.tablist
-                },
-                '' : {
-                     template: '<div ui-view  class="layout_flexbox"></div>'
-                }
-            }
-        })
-        .state('tros.shell.ir.dc.STT1001MU01', {
-            url:'/list',
-            ncyBreadcrumb: {
-                  skip: true
-            },
-            controller: 'STT1001MU01',
-            controllerAs: 'vm',
-            templateUrl: AppPath.stt + '/STT1001MU01.template.html'
-        });
 
-        $urlRouterProvider.when('/settings/infra', '/settings/infra/dc/list');
-        $urlRouterProvider.when('/settings/infra/dc', '/settings/infra/dc/list');
+        $stateProvider
+            .state('tros.shell.<%= code2%>.<%= code3%>', {
+
+                views: {
+                    '' : {
+                        controller: 'MtnList',
+                        controllerAs: 'vm',
+                        templateUrl:  AppPath.components.mtnlist
+                    },
+                    'detail' : {
+                        template: '<div ui-view class="layout_right_flexbox"></div>'
+                    }
+                }
+
+            })
+            .state('tros.shell.<%= code2%>.<%= code3%>.<%= program%>', {
+                url : '/<%= url%>',
+                controller: '<%= program%>',
+                controllerAs: 'vm',
+                templateUrl: AppPath.<%= code2%> + '/<%= program%>.template.html'
+            });
+
+
+        $urlRouterProvider.when('/<%= topurl%>', '/<%= url%>');
 
     }
 
