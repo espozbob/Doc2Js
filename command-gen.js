@@ -1,5 +1,5 @@
 // first of all make sure we have enough arguments (exit if not)
-if (process.argv.length != 8)
+if (process.argv.length != 9)
 {
     console.error("Usage: node command-gen.js csv/command.csv template/command.template.ejs")
     console.error();
@@ -26,6 +26,7 @@ var templateCommandFile = process.argv[4];
 var templateMapFile = process.argv[5];
 var templateControllerFile = process.argv[6];
 var templateSpecFile = process.argv[7];
+var templateHeadFile = process.argv[8];
 
 
 // make sure each file is the right type (exit if not)
@@ -35,6 +36,7 @@ assert.ok(templateCommandFile.lastIndexOf('ejs') == (templateCommandFile.length 
 assert.ok(templateMapFile.lastIndexOf('ejs') == (templateMapFile.length - 'ejs'.length), "template file should be an .ejs file");
 assert.ok(templateControllerFile.lastIndexOf('ejs') == (templateControllerFile.length - 'ejs'.length), "template file should be an .ejs file");
 assert.ok(templateSpecFile.lastIndexOf('ejs') == (templateSpecFile.length - 'ejs'.length), "template file should be an .ejs file");
+assert.ok(templateHeadFile.lastIndexOf('ejs') == (templateHeadFile.length - 'ejs'.length), "template file should be an .ejs file");
 
 // make sure we use the correct line-endings on Windows
 var EOL = (process.platform === 'win32' ? '\r\n' : '\n')
@@ -44,6 +46,7 @@ var templateCommand = ejs.compile(fs.readFileSync(templateCommandFile, 'utf8'));
 var templateMap = ejs.compile(fs.readFileSync(templateMapFile, 'utf8'));
 var templateController = ejs.compile(fs.readFileSync(templateControllerFile, 'utf8'));
 var templateSpec = ejs.compile(fs.readFileSync(templateSpecFile, 'utf8'));
+var templateHead = ejs.compile(fs.readFileSync(templateHeadFile, 'utf8'));
 
 // make an array to store our output
 var outLines = [];
@@ -162,6 +165,7 @@ csv()
         outLines = [];
         for(var i = 0; i< programs.length;i++){
             programs[i].dtoes = svces[i].dtoes;
+            programs[i].module= String(programs[i].program).substring(0,3);
             outLines.push(templateController(programs[i]));
             fs.writeFileSync('output/' + programs[i].program + '.controller.js', outLines[i], 'utf8');
         }
@@ -171,6 +175,8 @@ csv()
             outLines.push(templateSpec(programs[i]));
             fs.writeFileSync('output/' + programs[i].program + '.spec.js', outLines[i], 'utf8');
         }
+
+        fs.writeFileSync('output/module.head.js', templateHead({programs:programs}), 'utf8');
       
         console.log("done!");
     })

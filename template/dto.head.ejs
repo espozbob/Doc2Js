@@ -1,0 +1,10 @@
+/**
+ * Created by Doc2Js
+ * File name "dto.head.js"
+ * 아래 내용을 Copy해서 app/assets/js/init.js 복사하세요.
+ */
+<%# Input param: dtoes => List<dto> [{    dto: prev_dto,    module: module,    section1: section1.join(',' + EOL + TAB),    section2: section2.join(EOL+ TAB),    section3: section3.join(',' + EOL + TAB)}, ...]%>
+
+
+<% dtoes.forEach(function(dto) { %>     { <%=dto.dto%>Model:     commonModelUrl + '/<%=dto.module%>/<%=dto.dto%>.model.js'},
+<% }); %>    

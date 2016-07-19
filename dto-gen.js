@@ -1,5 +1,5 @@
 // first of all make sure we have enough arguments (exit if not)
-if (process.argv.length != 4)
+if (process.argv.length != 5)
 {
     console.error("Usage: node dto-gen.js csv/dto.csv template/dto.template.ejs")
     console.error();
@@ -22,20 +22,24 @@ ejs.close = '}}';
 // and give them more convenient names
 var inputFile = process.argv[2];
 var templateFile = process.argv[3];
+var templateHeadFile = process.argv[4];
 
 
 // make sure each file is the right type (exit if not)
 assert.ok(inputFile.lastIndexOf('csv') == (inputFile.length - 'csv'.length), "input file should be a .csv file");
 assert.ok(templateFile.lastIndexOf('ejs') == (templateFile.length - 'ejs'.length), "template file should be an .ejs file");
+assert.ok(templateHeadFile.lastIndexOf('ejs') == (templateHeadFile.length - 'ejs'.length), "template file should be an .ejs file");
 
 // make sure we use the correct line-endings on Windows
 var EOL = (process.platform === 'win32' ? '\r\n' : '\n')
 var TAB = '\t\t\t\t';
 // build the template
 var template = ejs.compile(fs.readFileSync(templateFile, 'utf8'))
+var templateHead = ejs.compile(fs.readFileSync(templateHeadFile, 'utf8'))
 
 // make an array to store our output
 var outLines = [];
+var outHeadLines = [];
 var dtoes = [];
 var section1 = [];
 var section2 = [];
@@ -44,6 +48,7 @@ var module = "";
 var prev_data = null;
 var prev_dto = "";
 var current_dto = "";
+var isNew = false;
 
 csv()
 .fromPath(inputFile, { columns: true })
@@ -65,6 +70,7 @@ csv()
     if (typeof data['dto'] === 'undefined' || data['dto'] === null || data['dto'] === '') {
         data['dto'] = current_dto;
     } else {
+        isNew = true;
         console.log("New DTO : " + data['dto']);
         prev_dto = current_dto;
         prev_data = {
@@ -77,10 +83,10 @@ csv()
         current_dto = data['dto'];
         section1 = [];
         section2 = [];
+        
         section3 = [];
 
     }
-    
 
     section1.push(data['property']);
     section2.push('this.' + data['property'] + ' = ' +  data['property'] + ';');
@@ -91,9 +97,10 @@ csv()
 .on('data',function(data,index){
     console.log('#'+index+' '+JSON.stringify(data));
     try {
-        if(prev_dto != '' &&  prev_dto != current_dto){
+        if(prev_dto != '' &&  prev_dto != current_dto && isNew){
              dtoes.push(prev_data);
              outLines.push(template(prev_data));
+            isNew = false;
         }
     } catch (e) {
         console.error(e.stack)
@@ -103,6 +110,7 @@ csv()
     for(var i = 0; i< dtoes.length;i++){
         fs.writeFileSync('output/' + dtoes[i].dto + '.model.js', outLines[i], 'utf8');
     }
+    fs.writeFileSync('output/dto.head.js', templateHead({dtoes:dtoes}), 'utf8');
     console.log("done!");
 })
 .on('error',function(error){

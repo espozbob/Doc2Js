@@ -1,0 +1,12 @@
+/**
+ * Created by Doc2Js
+ * File name "command.head.js"
+ * 아래 내용을 Copy해서 app/assets/js/init.js 복사하세요.
+ */
+<%# Input param: List<program> {programs: [program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}]}%>
+
+<% programs.forEach(function(program) { %>    { <%=program.program%>Module:     contentsUrl + '/<%=program.module%>/<%=program.program%>.module.js'},
+    { <%=program.program%>Cmd:     contentsUrl + '/<%=program.module%>/<%=program.program%>.command.js'},
+    { <%=program.program%>Map:     contentsUrl + '/<%=program.module%>/<%=program.program%>.map.js'},
+    { <%=program.program%>Ctrl:     contentsUrl + '/<%=program.module%>/<%=program.program%>.controller.js'},
+<% }); %>    
