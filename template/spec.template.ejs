@@ -1,0 +1,59 @@
+/**
+ * Created by Doc2Js
+ * File name "<%= program%>.spec.js"
+ */
+<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}%>
+
+    describe('<%= program%> 모듈 테스팅', function(){
+        var $timeout = null;
+        var provider;
+        var $controller;
+        var ngDialog;
+        var $document;
+    
+        beforeEach(function() {
+            /* 테스팅 수행 전 전체에 반영할 Action */
+        });
+        beforeEach(function() {
+
+            module('app', function($commangularProvider) {
+                provider = $commangularProvider;
+            });
+            inject(function(_$controller_, _$timeout_, _$document_, _ngDialog_ ){
+                $controller = _$controller_;
+                $timeout = _$timeout_;
+                ngDialog = _ngDialog_;
+                $document = _$document_;
+            });
+
+        });
+
+        describe('<%= program%>', function() {
+            var <%= program%>;
+
+            beforeEach(function() {
+                <%= program%> = $controller('<%= program%>', {});
+            });
+
+            it('<%= program%> 컨트롤러 Instance 상태', function() {
+                expect(<%= program%>).toBeDefined();
+            });
+
+            ////////////////// Event
+            <% events.forEach(function(event) { %><% if (event.handler) { %>
+            it("<%= event.id%> 이벤트", function() {
+                <%= program%>.<%= event.handler%>();
+            });<% }}); %>
+
+            //////////////////// Command
+            <% events.forEach(function(event) { %><% if (event.handler) { %>
+            it("<%= event.id%>_CMD 커맨드", function() {
+                dispatch({command:'<%= event.id%>_CMD'},function(exc){
+                    expect(exc.canceled()).toBeFalsy();
+                });
+            });<% }}); %>
+            
+        });
+    })
+
+})();

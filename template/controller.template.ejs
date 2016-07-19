@@ -43,8 +43,7 @@
         function  activate() {
 
         }
-<% events.forEach(function(event) { %>
-    <% if (event.handler) { %>
+<% events.forEach(function(event) { %><% if (event.handler) { %>
         /**
         * <%= event.label%>에서 <%= event.type%> 할 경우 이벤트 핸들러
         * @memberof <%= program%>
@@ -52,13 +51,12 @@
         * @param <%= event.out%>
         * @return <%= event.in%>
         */
-        function <%= event.handler%>(<%= event.out%>){
+        function <%= event.handler%>(<% if (event.out) { %><%= event.out%><% } %>){
             var evtId = '<%= event.id%>';
-            logger.info('Dispatch: '+ evtId, vm, '<%= event.label%>에서 <%= event.type%> -> ' + <%= event.out%>);
-            $commangular.dispatch(evtId, {<%= event.out%>: <%= event.out%>});
+            logger.info('Dispatch: '+ evtId, vm, '<%= event.label%>에서 <%= event.type%> -> ' <% if (event.out) { %> + <%= event.out%><% } %>);
+            <% if (event.out) { %>$commangular.dispatch(evtId, {<%= event.out%>: <%= event.out%>});<% } else { %>$commangular.dispatch(evtId);<% } %>
         }
-    <% } %>
-<% }); %>
+    <% } %><% }); %>
     }
 
 })();

@@ -1,0 +1,7 @@
+program,NO,service_id,class,class_desc,method,method_desc,in,out,validation,trans_call,description,blank,etc
+RSC0101MU01,1,RSC0101MU01_Q01,SRSC10,하드웨어관리,getOverView,하드웨어 오버뷰,RSC0101MU01_Q01In,RSC0101MU01_Q01Out,,,,,설계필요
+RSC0101MU01,2,RSC0101MU01_Q02,SRSC10,하드웨어관리,searchListHw,하드웨어 목록 조회,RSC0101MU01_Q02In,RSC0101MU01_Q02Out,,,,,설계필요
+RSC0101MU01,3,RSC0101MU01_U03,SRSC10,하드웨어관리,removeHw,하드웨어 삭제,RSC0101MU01_U03In,RSC0101MU01_U03Out,,,,,
+RSC0101MU01,4,RSC0101MU01_Q04,SRSC10,하드웨어관리,getHwExcel,하드웨어 엑셀 다운로드,RSC0101MU01_Q04In,RSC0101MU01_Q04Out,,,,,설계필요
+RSC0101MU01,5,COM0001CO01_Q01,SCOM10,Common 서비스,searchListDcByCondition,검색조건 데이터센터 목록 조회,COM0001CO01_Q01In,COM0001CO01_Q01Out,,,,,
+RSC0110FU01,1,RSC0110FU01_U01,SRSC10,하드웨어관리,batchHwUpload,하드웨어 엑셀 일괄등록,RSC0110FU01_U01In,RSC0110FU01_U01Out,,,,,
