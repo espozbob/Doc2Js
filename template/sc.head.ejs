@@ -1,0 +1,18 @@
+/**
+ * Created by Doc2Js
+ * File name "sc.head.js"
+ *
+ * 모듈 loader 설정
+ * 아래 내용을 Copy해서 app/assets/js/init.js 복사하세요.
+ */
+<%# Input param: List<program> {program:'대문자', code2:'STT', services :[{ program:'화면ID', ...},...]}%>
+
+<% programs.forEach(function(program) { %>    { <%=program.program%>Module:     contentsUrl + '/<%=program.code2%>/SC/<%=program.services[0].program%>.service.js'},
+<% }); %>
+
+
+
+
+
+
+

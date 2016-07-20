@@ -26,20 +26,6 @@
 
 
         $stateProvider
-            .state('tros.shell.<%= code2%>.<%= code3%>', {
-
-                views: {
-                    '' : {
-                        controller: 'MtnList',
-                        controllerAs: 'vm',
-                        templateUrl:  AppPath.components.mtnlist
-                    },
-                    'detail' : {
-                        template: '<div ui-view class="layout_right_flexbox"></div>'
-                    }
-                }
-
-            })
             .state('tros.shell.<%= code2%>.<%= code3%>.<%= program%>', {
                 url : '/<%= url%>',
                 controller: '<%= program%>',

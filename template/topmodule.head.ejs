@@ -8,5 +8,10 @@
 <%# Input param: List<program> {program:'대문자', submodules:[{ program:'화면ID', code2:'소문자', code3:'소문자', url:''},...]}%>
 
 <% programs.forEach(function(program) { %>    { <%=program.program%>Module:     contentsUrl + '/<%=program.program%>/<%=program.program%>.module.js'},
+    <% program.submodules.forEach(function(submodule) { %>    { <%=submodule.program%>Module:     contentsUrl + '/<%=program.program%>/<%=submodule.program%>.module.js'},
+    <% }); %>
 <% }); %>
+
+
+
 

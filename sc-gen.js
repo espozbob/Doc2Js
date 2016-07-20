@@ -1,8 +1,8 @@
 /**
- * Usage: >node.exe module-gen.js csv/module.csv template/module.template.ejs template/topmodule.template.ejs template/topmodule.head.ejs
+ * Usage: >node.exe sc-gen.js csv/sc.csv template/sc.template.ejs template/sc.head.ejs
  */
 // first of all make sure we have enough arguments (exit if not)
-if (process.argv.length != 6)
+if (process.argv.length != 5)
 {
     console.error("Usage: node command-gen.js csv/command.csv template/command.template.ejs")
     console.error();
@@ -25,14 +25,12 @@ ejs.close = '}}';
 // and give them more convenient names
 var inputFile = process.argv[2];
 var templateModuleFile = process.argv[3];
-var templateTopFile = process.argv[4];
-var templateHeadFile = process.argv[5];
+var templateHeadFile = process.argv[4];
 
 
 // make sure each file is the right type (exit if not)
 assert.ok(inputFile.lastIndexOf('csv') == (inputFile.length - 'csv'.length), "input file should be a .csv file");
 assert.ok(templateModuleFile.lastIndexOf('ejs') == (templateModuleFile.length - 'ejs'.length), "template file should be an .ejs file");
-assert.ok(templateTopFile.lastIndexOf('ejs') == (templateTopFile.length - 'ejs'.length), "template file should be an .ejs file");
 assert.ok(templateHeadFile.lastIndexOf('ejs') == (templateHeadFile.length - 'ejs'.length), "template file should be an .ejs file");
 
 // make sure we use the correct line-endings on Windows
@@ -40,16 +38,15 @@ var EOL = (process.platform === 'win32' ? '\r\n' : '\n')
 var TAB = '\t\t\t\t';
 // build the template
 var templateModule = ejs.compile(fs.readFileSync(templateModuleFile, 'utf8'));
-var templateTop = ejs.compile(fs.readFileSync(templateTopFile, 'utf8'));
 var templateHead = ejs.compile(fs.readFileSync(templateHeadFile, 'utf8'));
 
 // make an array to store our output
 var outLines = [];
 var programs = [];
-var events = [];
+var services = [];
 
 var module = "";
-var event = null;
+var service = null;
 var prev_program = "";
 
 
@@ -59,19 +56,24 @@ csv()
     // optional transform step, e.g.
     //data['Year'] = new Date(data['Date']).getUTCFullYear();
 
-    if(typeof data['ID'] === 'undefined' || data['ID'] === null || data['ID'] === '') {
-        console.log("input file should include a PROGRAM name");
-        throw new Error("input file should include a PROGRAM name");
+    if(typeof data['method'] === 'undefined' || data['method'] === null || data['method'] === '') {
+        console.log("input file should include a method name");
+        throw new Error("input file should include a method name");
     }
-
-    event = {
-        program: data['ID'],
-        code2: String(data['code2']||'').toLowerCase(),
-        code3: String(data['code3']||'').toLowerCase(),
-        topurl: String(data['URL']).split("/", String(data['URL']).split("/").length-1).join('/'),
-        url: data['URL'],
-        name: data['Name'],
-        desc: data['Description']
+    // if(typeof data['v3_api'] === 'undefined' || data['v3_api'] === null || data['v3_api'] === '') {
+    //     console.log("input file should include a api url");
+    //      throw new Error("input file should include a api url");
+    // }
+    service = {
+        program: data['class'],
+        method:  data['method'],
+        method_name: data['method_name'], 
+        in:data['in'], 
+        in_name:data['in_name'], 
+        out:data['out'], 
+        out_name:data['out_name'], 
+        v3_method:data['v3_method'], 
+        v3_api:data['v3_api']
     };
 
     return data;
@@ -79,32 +81,32 @@ csv()
 .on('data',function(data,index){
     console.log('#'+index+' '+JSON.stringify(data));
     try {
-        if(module != data['code2']){
+        if(module != data['class'] &&  data['class']  != null){
             prev_program = module;
-            if(module != '')
-                programs.push({program: module, submodules:events});
+            if(module != null && module != '')
+                programs.push({program: module, code2:module.substring(1,4), services:services});
 
-            console.log("New Module : " + data['code2']);
-            module = data['code2'];
-            events = [];
+            console.log("New Module : " + data['class']);
+            module = data['class'];
+            console.log('*' + module);
+            services = [];
         }
-        events.push(event);
+        services.push(service);
 
     } catch (e) {
         console.error(e.stack)
     }
 })
 .on('end',function(count){
-    programs.push({program: module, submodules:events});
+    console.log('*' + module);
+    programs.push({program: module, code2:module.substring(1,4), services:services});
 
     for(var i = 0; i< programs.length;i++){
-        fs.writeFileSync('output/' + programs[i].program + '.module.js', templateTop(programs[i]), 'utf8');
-        for(var j = 0; j< programs[i].submodules.length;j++) {
-            
-            fs.writeFileSync('output/' + programs[i].submodules[j].program + '.module.js', templateModule(programs[i].submodules[j]), 'utf8');
-        }
+       
+            fs.writeFileSync('output/' + programs[i].program + '.service.js', templateModule(programs[i]), 'utf8');
+      
     }
-    fs.writeFileSync('output/topmodule.head.js', templateHead({programs:programs}), 'utf8');
+    fs.writeFileSync('output/sc.head.js', templateHead({programs:programs}), 'utf8');
 
     
     console.log("done!");

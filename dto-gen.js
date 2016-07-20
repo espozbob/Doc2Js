@@ -62,7 +62,7 @@ csv()
         
         if(typeof data['program'] === 'undefined' || data['program'] === null || data['program'] === '') {
             console.log("input file should include a PROGRAM name");
-            return {};
+            throw new Error("input file should include a PROGRAM name");
         } else {
             module = data['program'];
             console.log("Module : " + data['program']);

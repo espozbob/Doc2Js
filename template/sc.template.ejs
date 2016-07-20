@@ -1,0 +1,58 @@
+/**
+* Created by Doc2Js
+* File name "<%= program%>.service.js"
+*/
+<%# Input param: List<event> {program:'화면ID', services:[{method:'event_id',method_name:'event_label', in:'event_type', in_name:'event_handler', out:'in', out_name:'out', v3_method:'', v3_api:''}, ...] ...]}%>
+
+(function(){
+"use strict";
+
+    angular.module('app.services')
+        .factory('<%= program%>', <%= program%>);
+
+    /**
+     * @memberof app.services
+     * @ngdoc factory
+     * @name <%= program%>
+     * @param $resource {service} dataservice of $resource
+     * @param logger {service} history of logging
+     * @returns service {service}  service return
+     */
+    <%= program%>.$inject = ['$resource', 'ServerPath'];
+    function <%= program%>($resource, ServerPath){
+
+        var svc = this;
+
+    <% services.forEach(function(service) { %>    svc.<%= service.method%> = <%= service.method%>;
+    <% }); %>
+        svc.getSvcList = getSvcList;
+
+        var dataservice = {
+            <% services.forEach(function(service) { %>    <%= service.method%> : svc.<%= service.method%>,
+            <% }); %>    getSvcList: svc.getSvcList
+        };
+        return dataservice;
+
+    <% services.forEach(function(service) { %><% if (service.method) { %>
+        /**
+         * <%= service.method_name%> 호출
+         * @memberof <%= program%>
+         * @function <%= service.method%>
+         * @param   <%= service.in%> {Object}  <%= service.in_name%>
+         * @returns <%= service.out%> {Object}  리턴값: <%= service.out_name%>
+         */
+        function <%= service.method%>(){
+            <% if (service.v3_method == '' || service.v3_method == null) {%>
+                    return  $resource(ServerPath.HOST + ServerPath.API_PATH + '<%= service.v3_api%>');
+            <%} else if (service.v3_method == 'GET') {%>
+                    return  $resource(ServerPath.HOST + ServerPath.API_PATH + '<%= service.v3_api%>',{<%= service.in_name%>:'@<%= service.in_name%>'});
+            <%} else if (service.v3_method == 'POST') {%>
+                    return  $resource(ServerPath.HOST + ServerPath.API_PATH + '<%= service.v3_api%>',  {}, { <%= service.method%>: {method:'POST'}});
+            <%} else {%>
+                    return  $resource(ServerPath.HOST + ServerPath.API_PATH + '<%= service.v3_api%>',  {}, { <%= service.method%>: {method:'<%= service.v3_method%>'}});
+            <% } %>
+        }
+    <% } %><% }); %>
+    }
+
+})();
