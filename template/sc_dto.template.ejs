@@ -1,0 +1,61 @@
+/**
+* Created by Doc2Js
+*/
+/**
+* File name "<%=dto%>.model.js"
+*/
+<%# Input param: dtoes => List<dto> [{    dto: prev_dto,    module: module,    section1: section1.join(',' + EOL + TAB),    section2: section2.join(EOL+ TAB),    section3: section3.join(',' + EOL + TAB)}, ...]%>
+
+(function(){
+    "use strict";
+    angular.module('<%=module%>')
+        <%- services%>;
+
+    /**
+     * <%=desc%>
+     *
+     * @memberof STT
+     * @ngdoc factory
+     * @name <%=dto%>
+     * @returns  {object}  service return
+     */
+    <%=dto%>.$inject = [<%- injections%>];
+    function <%=dto%>(<%=fncInject%>){
+        var vm = this;
+        <%- section1%>
+        <% if(dto.substr(dto.length - 3) == 'Out') {%>
+        vm.updated = -1;
+        vm.build = build;
+        <%}%>
+        vm.getDataAll = getDataAll;
+
+        var service = {
+            <%- section2%>
+            <% if(dto.substr(dto.length - 3) == 'Out') {%>
+            getUpdated :  function(){ return vm.updated },
+            build: vm.build,
+            <%}%>
+            getDataAll : vm.getDataAll
+        };
+        return service;
+        
+        <% if(dto.substr(dto.length - 3) == 'Out') {%>
+            function build(response) {
+                var tmp = null;
+                
+                vm.updated *= -1;
+                <%- section3%>
+
+            }
+        <%}%>
+        function getDataAll(){
+
+            return {
+                <%- section4%>
+            };
+        }
+       
+    }
+
+
+})();
