@@ -2,7 +2,7 @@
 * Created by Doc2Js
 * File name "<%= program%>.controller.js"
 */
-<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}%>
+<%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes_in:[], dtoes_out:[]}%>
 
 (function(){
 "use strict";
@@ -19,20 +19,20 @@
     * @param $commangular {service} $commangular
     */
     <%= program%>.$inject = ['logger','$commangular'
-    <% dtoes.forEach(function(dto) { %>                     ,'<%= dto.in%>', '<%= dto.out%>'
-    <% }); %>                       ];
+<% dtoes_in.forEach(function(ins) { %><% if (ins) { %><%= '\r\n'%><%= '\t\t\t\t\t\t'%>, '<%= ins%>'<% }%> <% }); %>
+<% dtoes_out.forEach(function(out) { %><% if (out) { %><%= '\r\n'%><%= '\t\t\t\t\t\t'%>, '<%= out%>'<% }%> <% }); %>
+                         ];
     function <%= program%>(logger, $commangular
-    <% dtoes.forEach(function(dto) { %>                     ,<%= dto.in%>, <%= dto.out%>
-    <% }); %>                       ){
+<% dtoes_in.forEach(function(ins) { %><% if (ins) {%><%= '\r\n'%><%= '\t\t\t\t\t\t'%>, <%= ins%><% }%><% }); %>
+<% dtoes_out.forEach(function(out) { %><% if (out) {%><%= '\r\n'%><%= '\t\t\t\t\t\t'%>, <%= out%><% }%> <% }); %>
+                      ){
 
         var vm = this;
 
-    <% dtoes.forEach(function(dto) { %>    vm.<%= dto.in%> = <%= dto.in%>;
-        vm.<%= dto.out%> = <%= dto.out%>;
-    <% }); %>
+<% dtoes_in.forEach(function(ins) {%><% if (ins) {%><%= '\t\t'%>vm.<%= ins%> = <%= ins%>;<%= '\r\n'%><% }%><% }); %>
+<% dtoes_out.forEach(function(out) {%><% if (out) {%><%= '\t\t'%>vm.<%= out%> = <%= out%>;<%= '\r\n'%><% }%><% }); %>
 
-<% events.forEach(function(event) { %>      <% if (event.handler) { %>  vm.<%= event.handler%> = <%= event.handler%>;<% } %>
-<% }); %>
+<% events.forEach(function(event) { %><% if (event.handler) { %><%= '\t\t'%>vm.<%= event.handler%> = <%= event.handler%>;<%= '\r\n'%><% }%><%}); %>
         activate();
 
         /**

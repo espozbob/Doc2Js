@@ -11,6 +11,7 @@ if (process.argv.length != 9)
     process.exit(1);
 }
 
+
 // now load the modules we need
 var csv = require('csv'),       // library for processing CSV spreadsheet files
     ejs = require('ejs'),       // library for turning .ejs templates into .html files
@@ -87,6 +88,7 @@ csv()
     try {
         if(module != data['program']){
             prev_program = module;
+            events = events.filter((thing, index, self) => self.findIndex((t) => {return t.handler === thing.handler; }) === index)
             if(module != '')
                 programs.push({program: module, events:events});
 
@@ -124,6 +126,8 @@ prev_program = '';
 var svces = [];
 var svc = "";
 var dtoes = [];
+var dtoes_in = [];
+var dtoes_out = [];
 
 csv()
     .fromPath(inputSvcFile, { columns: true })
@@ -134,11 +138,6 @@ csv()
             return {};
         }
 
-        dto = {
-            in: data['in'],
-            out: data['out']
-        };
-
         return data;
     })
     .on('data',function(data,index){
@@ -146,28 +145,38 @@ csv()
         try {
             if(svc != data['program']){
                 prev_program = svc;
+
+                dtoes_in = Array.from(new Set(dtoes_in));
+                dtoes_out = Array.from(new Set(dtoes_out));
+               // dtoes = dtoes.filter((thing, index, self) => self.findIndex((t) => {return t.in === thing.in && t.out === thing.out; }) === index)
+
                 if(svc != '')
-                    svces.push({program: svc, dtoes:dtoes});
+                    svces.push({program: svc, dtoes_in:dtoes_in, dtoes_out:dtoes_out});
 
                 console.log("New Command : " + data['program']);
                 svc = data['program'];
-                dtoes = [];
+                dtoes_in = [];
+                dtoes_out = [];
             }
-            dtoes.push(dto);
+            dtoes_in.push(data['in']);
+            dtoes_out.push(data['out']);
+
 
         } catch (e) {
             console.error(e.stack)
         }
     })
     .on('end',function(count){
-        svces.push({program: svc, dtoes:dtoes});
+
+        svces.push({program: svc,dtoes_in:dtoes_in, dtoes_out:dtoes_out});
         if(programs.length != svces.length) {
             console.log("dismatch with controller's id and services's id");
             return {};
         }
         outLines = [];
         for(var i = 0; i< programs.length;i++){
-            programs[i].dtoes = svces[i].dtoes;
+            programs[i].dtoes_in = svces[i].dtoes_in;
+            programs[i].dtoes_out = svces[i].dtoes_out;
             programs[i].module= String(programs[i].program).substring(0,3);
             outLines.push(templateController(programs[i]));
             fs.writeFileSync('output/' + programs[i].program + '.controller.js', outLines[i], 'utf8');

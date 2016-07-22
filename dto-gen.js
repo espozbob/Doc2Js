@@ -47,6 +47,8 @@ var dtoes = [];
 var section1 = [];
 var section2 = [];
 var section3 = [];
+var injections = [];
+var fncInject = [];
 var module = "";
 var prev_data = null;
 var prev_dto = "";
@@ -69,7 +71,7 @@ csv()
         }
         
     }
-    
+
     if (typeof data['dto'] === 'undefined' || data['dto'] === null || data['dto'] === '') {
         data['dto'] = current_dto;
     } else {
@@ -79,6 +81,8 @@ csv()
         prev_data = {
             dto: prev_dto,
             module: module,
+            injections: injections.join(', '),
+            fncInject: fncInject.join(', '),
             section1: section1.join(',' + EOL + TAB),
             section2: section2.join(EOL+ TAB),
             section3: section3.join(',' + EOL + TAB)
@@ -86,14 +90,22 @@ csv()
         current_dto = data['dto'];
         section1 = [];
         section2 = [];
-        
+        fncInject =[];
+        injections =[];
         section3 = [];
 
     }
 
     section1.push(data['property']);
-    section2.push('this.' + data['property'] + ' = ' +  data['property'] + ';');
-    section3.push('data.' + data['property'] );
+    section2.push('this.' + data['property'] + ' = ' +  data['property'] + ';' + TAB + '//' +   data['type'] + ': ' + (data['property_hname']||''));
+    if(data['dto_name'] === 'DTO') {
+        fncInject.push(data['type']);
+        injections.push('"'+ data['type'] + '"' );
+        section3.push(data['type'] + '.build(data.' + data['property'] + ')');
+    }else {
+        section3.push('data.' + data['property'] );
+    }
+
 
     return data;
 })

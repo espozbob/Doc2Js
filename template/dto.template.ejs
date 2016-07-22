@@ -11,18 +11,19 @@
     angular.module('model.<%=module%>')
     .factory('<%=dto%>', <%=dto%>);
 
+    <%=dto%>.$inject = [<%- injections%>];
     /**
     * @memberof model.<%=module%>
     * @ngdoc factory
     * @name <%=dto%>
     * @returns <%=dto%> {object}  service return
     */
-    function <%=dto%>(){
+    function <%=dto%>(<%=fncInject%>){
 
         function <%=dto%>(
                 <%=section1%>
         ){
-                <%=section2%>
+                <%- section2%>
         }
         <%=dto%>.build = build;
 

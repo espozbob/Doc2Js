@@ -7,7 +7,7 @@
  */
 <%# Input param: List<program> {program:'대문자', code2:'STT', services :[{ program:'화면ID', ...},...]}%>
 
-<% programs.forEach(function(program) { %>    { <%=program.program%>Module:     contentsUrl + '/<%=program.code2%>/SC/<%=program.services[0].program%>.service.js'},
+<% programs.forEach(function(program) { %>    { <%=program.program%>:     contentsUrl + '/<%=program.code2%>/SC/<%=program.services[0].program%>.service.js'},
 <% }); %>
 
 
