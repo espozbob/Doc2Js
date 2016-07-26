@@ -3,7 +3,8 @@
  * File name "<%= program%>.spec.js"
  */
 <%# Input param: List<event> {program:'화면ID', events:[{id:'event_id',label:'event_label', type:'event_type', handler:'event_handler', in:'in', out:'out'}, ...], dtoes:[{in:'dto_in',out:'dto_out'}, ...]}%>
-
+(function(){
+    "use strict";
     describe('<%= program%> 모듈 테스팅', function(){
         var $timeout = null;
         var provider;

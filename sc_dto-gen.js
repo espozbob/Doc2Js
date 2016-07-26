@@ -96,7 +96,7 @@ csv()
             services: ".service('" + prev_dto + "', " +prev_dto +')',
             section1: section1.join(EOL + '        '),
             section2: section2.join(EOL+ '            '),
-            section3: section3.join(',' + EOL + TAB),
+            section3: section3.join( EOL + TAB),
             section4: section4.join(',' + EOL + TAB)
         };
         current_dto = data['dto'];
@@ -138,20 +138,24 @@ csv()
     return data;
 })
 .on('data',function(data,index){
-    console.log('#'+index+' '+JSON.stringify(data));
+
     try {
         if(prev_dto != '' &&  prev_dto != current_dto && isNew){
              dtoes.push(prev_data);
              outLines.push(template(prev_data));
             isNew = false;
+            console.log('#'+index+' '+JSON.stringify(data));
         }
     } catch (e) {
         console.error(e.stack)
     }
 })
 .on('end',function(count){
-     dtoes.sort(function(a,b) {return (a.dto > b.dto) ? 1 : ((b.dto > a.dto) ? -1 : 0);} );
+    dtoes.push(prev_data);
+    outLines.push(template(prev_data));
+     //dtoes.sort(function(a,b) {return (a.dto > b.dto) ? 1 : ((b.dto > a.dto) ? -1 : 0);} );
     for(var i = 0; i< dtoes.length;i++){
+        console.error(dtoes[i].dto);
         fs.writeFileSync('output/' + dtoes[i].dto + '.model.js', outLines[i], 'utf8');
     }
     fs.writeFileSync('output/dto.head.js', templateHead({dtoes:dtoes}), 'utf8');

@@ -122,6 +122,8 @@ csv()
     }
 })
 .on('end',function(count){
+    dtoes.push(prev_data);
+    outLines.push(template(prev_data));
     for(var i = 0; i< dtoes.length;i++){
         fs.writeFileSync('output/' + dtoes[i].dto + '.model.js', outLines[i], 'utf8');
     }
