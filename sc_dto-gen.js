@@ -90,7 +90,7 @@ csv()
             dto: prev_dto,
             code2:module.substring(0,3),
             desc: prev_desc,
-            module: module,
+            module: prev_dto.substring(0,11),
             injections: injections.join(', '),
             fncInject: fncInject.join(', '),
             services: ".service('" + prev_dto + "', " +prev_dto +')',
@@ -117,7 +117,7 @@ csv()
         section1.push('vm.' + data['property'] + ' = "";');
     }
     
-    section2.push('get' + String(data['property']).charAt(0).toUpperCase() + String(data['property']).slice(1) + ' : function(){ return vm.' +  data['property'] + '},');
+    section2.push('get' + String(data['property']).charAt(0).toUpperCase() + String(data['property']).slice(1) + ' : function(){ return vm.' +  data['property'] + ';},');
     
     section4.push(data['property'] + ' : vm.' +  data['property'] );    //getData
     if(data['dto_name'] === 'DTO') {
