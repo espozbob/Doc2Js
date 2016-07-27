@@ -9,16 +9,16 @@
 (function(){
     "use strict";
     angular.module('model.<%=module%>')
-    .factory('<%=dto%>', <%=dto%>);
+    .factory('<%=dto%>', <%=dto%>Class);
 
-    <%=dto%>.$inject = [<%- injections%>];
+    <%=dto%>Class.$inject = [<%- injections%>];
     /**
     * @memberof model.<%=module%>
     * @ngdoc factory
-    * @name <%=dto%>
+    * @name <%=dto%>Class
     * @returns <%=dto%> {object}  service return
     */
-    function <%=dto%>(<%=fncInject%>){
+    function <%=dto%>Class(<%=fncInject%>){
 
         function <%=dto%>(
                 <%=section1%>

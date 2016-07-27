@@ -151,6 +151,19 @@ csv()
     }
 })
 .on('end',function(count){
+    prev_data = {
+        dto: current_dto,
+        code2:module.substring(0,3),
+        desc: current_desc,
+        module: current_dto.substring(0,11),
+        injections: injections.join(', '),
+        fncInject: fncInject.join(', '),
+        services: ".service('" + current_dto + "', " +current_dto +')',
+        section1: section1.join(EOL + '        '),
+        section2: section2.join(EOL+ '            '),
+        section3: section3.join( EOL + TAB),
+        section4: section4.join(',' + EOL + TAB)
+    };
     dtoes.push(prev_data);
     outLines.push(template(prev_data));
      //dtoes.sort(function(a,b) {return (a.dto > b.dto) ? 1 : ((b.dto > a.dto) ? -1 : 0);} );
