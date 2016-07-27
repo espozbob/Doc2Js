@@ -32,7 +32,7 @@
         var service = {
             <%- section2%>
             <% if(dto.substr(dto.length - 3) == 'Out') {%>
-            getUpdated :  function(){ return vm.updated },
+            getUpdated :  function(){ return vm.updated;},
             build: vm.build,
             <%}%>
             getDataAll : vm.getDataAll
