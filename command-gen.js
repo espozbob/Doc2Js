@@ -169,17 +169,35 @@ csv()
     .on('end',function(count){
 
         svces.push({program: svc,dtoes_in:dtoes_in, dtoes_out:dtoes_out});
+        var svcByProgram = [];
+  
         if(programs.length != svces.length) {
             console.log("dismatch with controller's id and services's id");
-            return {};
+            //return {};
         }
         outLines = [];
+        var isSvcBlank = true;
         for(var i = 0; i< programs.length;i++){
-            programs[i].dtoes_in = svces[i].dtoes_in;
-            programs[i].dtoes_out = svces[i].dtoes_out;
-            programs[i].module= String(programs[i].program).substring(0,3);
-            outLines.push(templateController(programs[i]));
-            fs.writeFileSync('output/' + programs[i].program + '.controller.js', outLines[i], 'utf8');
+             isSvcBlank = true;
+            svces.forEach( function(svc){
+                  if(programs[i].program === svc.program){
+
+                      programs[i].dtoes_in = svc.dtoes_in;
+                      programs[i].dtoes_out =svc.dtoes_out;
+                      programs[i].module = String(programs[i].program).substring(0, 3);
+                       
+                      fs.writeFileSync('output/' + programs[i].program + '.controller.js', templateController(programs[i]), 'utf8');
+                      isSvcBlank = false;
+                  }
+                  
+              });
+            if(isSvcBlank){
+                programs[i].dtoes_in = [];
+                programs[i].dtoes_out =[];
+                programs[i].module = String(programs[i].program).substring(0, 3);
+                 
+                fs.writeFileSync('output/' + programs[i].program + '.controller.js', templateController(programs[i]), 'utf8');
+            }
         }
 
         outLines = [];

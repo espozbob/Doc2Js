@@ -122,6 +122,15 @@ csv()
     }
 })
 .on('end',function(count){
+    prev_data = {
+        dto: current_dto,
+        module: module,
+        injections: injections.join(', '),
+        fncInject: fncInject.join(', '),
+        section1: section1.join(',' + EOL + TAB),
+        section2: section2.join(EOL+ TAB),
+        section3: section3.join(',' + EOL + TAB)
+    };
     dtoes.push(prev_data);
     outLines.push(template(prev_data));
     for(var i = 0; i< dtoes.length;i++){
