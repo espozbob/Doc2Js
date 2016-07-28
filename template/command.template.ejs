@@ -30,7 +30,7 @@
 
         return {
             execute: function() {
-                logger.success('Execute: <%= event.id%>_CMD',$state, '<%= event.label%>에서 <%= event.handler%> 실행');
+                logger.warning('Execute: <%= event.id%>_CMD',$state, '<%= event.label%>에서 <%= event.handler%> 실행');
                 /* code */
 
             }

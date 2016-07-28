@@ -101,7 +101,7 @@ csv()
     if(data['dto_name'] === 'DTO') {
         fncInject.push(data['type']);
         injections.push('"'+ data['type'] + '"' );
-        section3.push(data['type'] + '.build(data.' + data['property'] + ');');
+        section3.push(data['type'] + '.build(data.' + data['property'] + ')');
     }else {
         section3.push('data.' + data['property'] );
     }
